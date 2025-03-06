@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Badge } from "@/components/ui/badge"
 import { Star, Clock, Calendar, Film, Award } from "lucide-react"
 import type { MovieDetails } from "@/lib/types"
+import Image from "next/image"
 
 interface MovieDetailsModalProps {
   isOpen: boolean
@@ -25,7 +26,16 @@ export function MovieDetailsModal({ isOpen, onClose, movie }: MovieDetailsModalP
         <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 mt-4">
           <div className="aspect-[2/3] bg-gray-100 rounded-md overflow-hidden">
             {movie.Poster && movie.Poster !== "N/A" ? (
-              <img src={movie.Poster || "/placeholder.svg"} alt={movie.Title} className="object-cover w-full h-full" />
+              <div className="relative w-full h-full">
+                <Image
+                  src={movie.Poster || "/placeholder.svg"}
+                  alt={movie.Title}
+                  className="object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 200px"
+                  unoptimized={movie.Poster.startsWith("http")}
+                />
+              </div>
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gray-200">
                 <span className="text-gray-400">No Image</span>

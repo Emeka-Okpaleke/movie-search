@@ -47,7 +47,7 @@ export function MovieSearch() {
           // Limit preview results to 5 movies
           setPreviewMovies(result.movies?.slice(0, 5) || [])
         }
-      } catch (err) {
+      } catch (_) {
         setPreviewMovies([])
       } finally {
         setPreviewLoading(false)
@@ -79,7 +79,7 @@ export function MovieSearch() {
           setError("No movies found. Try a different search term.")
         }
       }
-    } catch (err) {
+    } catch (_) {
       setError("An unexpected error occurred. Please try again.")
       setMovies([])
     } finally {
@@ -131,7 +131,7 @@ export function MovieSearch() {
               </span>
             ) : (
               <span className="flex items-center gap-2">
-                <Search className="h-4 w-4 " />
+                <Search className="h-4 w-4" />
                 Search
               </span>
             )}
@@ -153,7 +153,7 @@ export function MovieSearch() {
 
       {searched && !error && movies.length > 0 && (
         <div className="space-y-2">
-          <h2 className="text-xl font-semibold text-gray-50">Search Results</h2>
+          <h2 className="text-xl font-semibold">Search Results</h2>
           <MovieGrid movies={movies} />
         </div>
       )}
