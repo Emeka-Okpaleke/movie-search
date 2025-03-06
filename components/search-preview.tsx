@@ -1,5 +1,8 @@
+"use client"
+
 import type { Movie } from "@/lib/types"
 import { Loader2 } from "lucide-react"
+import Image from "next/image"
 
 interface SearchPreviewProps {
   movies: Movie[]
@@ -28,11 +31,16 @@ export function SearchPreview({ movies, loading, onSelect, query }: SearchPrevie
             >
               <div className="h-12 w-8 flex-shrink-0 bg-gray-200 rounded overflow-hidden">
                 {movie.Poster && movie.Poster !== "N/A" ? (
-                  <img
-                    src={movie.Poster || "/placeholder.svg"}
-                    alt={movie.Title}
-                    className="h-full w-full object-cover"
-                  />
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={movie.Poster || "/placeholder.svg"}
+                      alt={movie.Title}
+                      className="object-cover"
+                      fill
+                      sizes="32px"
+                      unoptimized={movie.Poster.startsWith("http")}
+                    />
+                  </div>
                 ) : (
                   <div className="h-full w-full flex items-center justify-center text-gray-400 text-xs">No image</div>
                 )}
@@ -45,7 +53,7 @@ export function SearchPreview({ movies, loading, onSelect, query }: SearchPrevie
           ))}
         </ul>
       ) : (
-        <div className="p-4 text-sm text-gray-500 text-center">No movies found for "{query}"</div>
+        <div className="p-4 text-sm text-gray-500 text-center">No movies found for &quot;{query}&quot;</div>
       )}
     </div>
   )
