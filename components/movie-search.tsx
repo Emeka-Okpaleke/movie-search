@@ -74,8 +74,9 @@ export function MovieSearch() {
         setError(result.error)
         setMovies([])
       } else {
-        setMovies(result.movies || [])
-        if (result.movies.length === 0) {
+        const movieResults = result.movies || []
+        setMovies(movieResults)
+        if (movieResults.length === 0) {
           setError("No movies found. Try a different search term.")
         }
       }
